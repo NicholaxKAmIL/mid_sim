@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script type="text/javascript" src="data.json"></script>
+        <link rel="stylesheet" type="text/css" href="css/main.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+        
+        <script src="functions.js"></script>
+        
+        <script>
+            
+            var selectedClassID=[];
+            var matchArrayD=[]
+
+            
+            function popUpBtn(matchArray,locationID){
+                
+                var modbody = document.getElementById("modal-body");
+                modbody.innerHTML='';
+                console.log(locationID);        
+                while(matchArray!=0){
+                    var btn = document.createElement('button');
+                    let className = matchArray.pop();
+                    btn.innerHTML=className;
+                    $(btn).addClass("btn btn-success");
+                    
+                    
+                    btn.onclick = function(){
+                        console.log("click!");
+                        let callBackTD = document.getElementById(locationID);
+                        callBackTD.innerHTML = this.innerHTML;
+                        $("#myModal").modal('hide');
+                    };
+                    //console.log(className);
+                    //console.log("CALL");
+                    modbody.appendChild(btn);
+                }
+                
+            }
+            function popUpBtn(matchArray,matchArrayID,locationID){
+                matchArrayD = matchArray;
+                //console.log(matchArray,matchArrayD);
+                var modbody = document.getElementById("modal-body");
+                modbody.innerHTML='';
+                console.log("locationID:",locationID);        
+                while(matchArrayD!=0){
+                    var btn = document.createElement('button');
+                    let className = matchArrayD.pop();
+                    btn.innerHTML=className;
+                    $(btn).addClass("btn btn-success");
+                    
+                    btn.onclick = function(matchArray){
+                        console.log("click!",this.innerHTML," button:",locationID);
+                        
+                        
+                        searchByLocationID(locationID,this.innerHTML);
+                        
+                        //console.log("button:",locationID.substring(4,5));
+                        let callBackTD = document.getElementById(locationID);
+                        
+                        for(let i=0;i<matchArray.length;i++){
+                            if(matchArray[i] = this.innerHTML){
+                                console.log("MATCH");
+                                selectedClassID.push(matchArrayID[i]);
+                                callBackTD.innerHTML = this.innerHTML;
+                            }
+                        }
+                        
+                        //let callBackTD = document.getElementById(locationID);
+                        callBackTD.innerHTML = this.innerHTML;
+                        
+                        console.log(selectedClassID);
+                        $("#myModal").modal('hide');
+                    };
+                    //console.log(className);
+                    //console.log("CALL");
+                    modbody.appendChild(btn);
+                }
+                
+            }
+            
+        </script>
+
+    </head>
+    <body>
+        
+        
+        <div class="container">
+
+          <!-- Modal -->
+          <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog">
+
+              <!-- Modal content-->
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title">可選課程</h4>
+                </div>
+                <div class="modal-body" id ="modal-body">
+                  
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+        
+
+        <script>
+            tableCreate();
+        </script>
+
+
+
+        <script>
+        $(document).ready(function(){
+          $("#btn").click(function(){
+            $("#myModal").modal();
+          });
+        });
+        </script>
+
+    </body>
+</html>

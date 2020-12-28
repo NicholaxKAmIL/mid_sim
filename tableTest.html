@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script type="text/javascript" src="data.json"></script>
+    
+    
+</head>
+<body>
+<script>
+function popUP(){}
+    
+function btnSearchData(){
+    
+}
+    
+function tableCreate(){
+    var weeks = ['節次','時間','星期一','星期二','星期三','星期四','星期五','星期六','星期日'];
+    var times = ['','08:10~09:00','09:10~10:00','10:10~11:00','11:10~12:00','12:40~13:30','13:40~14:30','14:40~15:30','15:40~16:30','16:40~17:30','17:40~18:30','18:35~19:25','19:30~20:20','20:25~21:15','21:20~22:10'];
+    
+    var body = document.body,
+        tbl  = document.createElement('table');
+    
+    tbl.style.width  = '100%';
+    tbl.style.border = '1px solid black';
+    	
+    var dataIndexx=0,dataIndexy=0;
+    var KKK;
+    
+    var data = JSON.parse(Kdata);
+    console.log(data);
+    var button;
+    var buttonCount=1;
+    
+    for(var i = 0; i < 15; i++){
+        var tr = tbl.insertRow();
+        for(var j = 0; j < 9; j++){
+            var td = tr.insertCell();
+            td.style.border = '1px solid black';
+            if(i==0){
+                td.appendChild(document.createTextNode(weeks[j]));
+            }else if(i!=0&&j==0){
+                td.appendChild(document.createTextNode(i));
+            }else if(i!=0&&j==1){
+                td.appendChild(document.createTextNode(times[i]));
+            }
+            else{
+                    KKK = document.createTextNode(dataIndexx+','+dataIndexy);
+                    button = document.createElement('button');
+                    button.innerHTML = buttonCount;
+                    buttonCount++;
+                    button.onclick = function(){
+                        var week = this.innerHTML%7;
+                        var time = parseInt(this.innerHTML/7)+1;
+                        this.innerHTML = week+','+time;
+                        for(var Dc=0;Dc<data.length;Dc++){
+
+                            for(var Sc=0;Sc<data[Dc].Time.length;Sc++){
+                                //console.log("Functioned");
+                                var timeCal = data[Dc].Time.substr(Sc,1);
+                                var weekCal = data[Dc].Week;
+                                //console.log("timeCal:"+timeCal+",weekCal:"+weekCal+"\ntime:"+time+",week:"+week);
+                                
+                                if((timeCal == time) &&(weekCal==week)){
+                                    console.log("MATCH");
+                                    this.innerHTML+=data[Dc].Name+"\n";
+                                }                      
+                                
+                            }
+
+                        }
+                        
+//                        alert(this.innerHTML+','+week+','+time+'\n');
+                        return false;
+                    };
+                    td.appendChild(button);
+                    dataIndexy++; 
+                }          
+        }
+    dataIndexx++;
+    dataIndexy=1;
+    }
+    
+    body.appendChild(tbl);
+    
+}
+tableCreate();
+</script>
+</body>
+</html>

@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script type="text/javascript" src="data.json"></script>
+        <link rel="stylesheet" type="text/css" href="css/main.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+        
+        <script>
+            function popUpBtn(matchArray,location){
+                
+                var modbody = document.getElementById("modal-body");
+                modbody.innerHTML='';
+                //console.log(matchArray);        
+                while(matchArray!=0){
+                    var btn = document.createElement('button');
+                    let className = matchArray.pop();
+                    btn.innerHTML=className;
+                    //console.log(className);
+                    console.log("CALL");
+                    modbody.appendChild(btn);
+                }
+            }
+            function popUpBtn(matchArray,locationID){
+                
+                var modbody = document.getElementById("modal-body");
+                modbody.innerHTML='';
+                console.log(locationID);        
+                while(matchArray!=0){
+                    var btn = document.createElement('button');
+                    let className = matchArray.pop();
+                    btn.innerHTML=className;
+                    $(btn).addClass("btn btn-success");
+                    
+                    
+                    btn.onclick = function(){
+                        console.log("click!");
+                        let callBackTD = document.getElementById(locationID);
+                        callBackTD.innerHTML = this.innerHTML;
+                        $("#myModal").modal('hide');
+                    };
+                    //console.log(className);
+                    //console.log("CALL");
+                    modbody.appendChild(btn);
+                }
+                
+            }
+            
+            function tableCreate(){
+                var weeks = ['節次','時間','星期一','星期二','星期三','星期四','星期五','星期六','星期日'];
+                var times = ['','08:10~09:00','09:10~10:00','10:10~11:00','11:10~12:00','12:40~13:30','13:40~14:30','14:40~15:30','15:40~16:30','16:40~17:30','17:40~18:30','18:35~19:25','19:30~20:20','20:25~21:15','21:20~22:10'];
+
+                var body = document.body;
+
+                
+                let rowHeader = document.createElement('div');
+                $(rowHeader).addClass("rowHeader")
+                
+                let containerTable = document.createElement("div");
+                $(containerTable).addClass("container-table100")
+                let wrapTable = document.createElement("div");
+                $(wrapTable).addClass("wrap-table100")
+                
+                var tbd = document.createElement('div');
+                $(tbd).addClass('table');
+                
+
+                var dataIndexx=0,dataIndexy=0;
+                //var KKK;
+
+                var data = JSON.parse(Kdata);
+                console.log(data);
+                var button;
+                var buttonCount=1;
+
+                for(var i = 0; i < 15; i++){
+                    var tr = document.createElement('div');
+                    $(tr).addClass('row');
+                    tbd.appendChild(tr);
+                    
+                    for(var j = 0; j < 9; j++){
+                        var td = document.createElement('divTTT');
+                        $(td).addClass=("cell");
+                        tr.appendChild(td);
+                        if(i==0){
+                            td.appendChild(document.createTextNode(weeks[j]));
+                            //$(td).addClass=("row header");
+                        }else if(i!=0&&j==0){
+                            td.appendChild(document.createTextNode(i));
+                        }else if(i!=0&&j==1){
+                            td.appendChild(document.createTextNode(times[i]));
+                        }
+                        else{
+                            //KKK = document.createTextNode(dataIndexx+','+dataIndexy);
+                            button = document.createElement('button');
+                            button.innerHTML = buttonCount;
+                            buttonCount++;
+                            //$(button).css("width","100%");
+                            
+                            let week = button.innerHTML%7;
+                            let time = parseInt(button.innerHTML/7)+1;
+                            button.id='td'+week+'_'+time;
+                            
+                            button.onclick = function(){
+                                $("#myModal").modal();
+                                let week = this.innerHTML%7;
+                                let time = parseInt(this.innerHTML/7)+1;
+                                this.id='td'+week+'_'+time;
+                                
+                                var output=[];
+                                
+                                this.innerHTML = week+','+time;
+                                for(var Dc=0;Dc<data.length;Dc++){
+
+                                    for(var Sc=0;Sc<data[Dc].Time.length;Sc++){
+                                        //console.log("Functioned");
+                                        var timeCal = data[Dc].Time.substr(Sc,1);
+                                        var weekCal = data[Dc].Week;
+                                        //console.log("timeCal:"+timeCal+",weekCal:"+weekCal+"\ntime:"+time+",week:"+week);
+
+                                        if((timeCal == time) &&(weekCal==week)){
+                                            //console.log("MATCH"+data[Dc].name);
+                                            output.unshift(data[Dc].Name)
+                                            
+                                            
+                                        }                      
+
+                                    }
+
+                                }
+                                var modBody = document.getElementById("modal-body");
+                                
+                                modBody.innerHTML = output;
+                                popUpBtn(output,this.id);
+                                
+                                //console.log(output);                             
+                                //alert(this.innerHTML+','+week+','+time+'\n');
+                                return false;
+                            };
+                            td.appendChild(button);
+                            dataIndexy++; 
+                        }          
+                    }
+                dataIndexx++;
+                dataIndexy=1;
+                }
+                
+                
+                body.appendChild(containerTable);
+                containerTable.appendChild(wrapTable);
+                wrapTable.appendChild(tbd);
+
+            }
+        </script>
+
+    </head>
+    <body>
+        
+        
+        <div class="container">
+
+          <!-- Modal -->
+          <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog">
+
+              <!-- Modal content-->
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title">可選課程</h4>
+                </div>
+                <div class="modal-body" id ="modal-body">
+                  
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+        
+
+        <script>
+            tableCreate();
+        </script>
+
+
+
+        <script>
+        $(document).ready(function(){
+          $("#btn").click(function(){
+            $("#myModal").modal();
+          });
+        });
+        </script>
+
+    </body>
+</html>
