@@ -162,7 +162,7 @@ function chainSearch(locationID,selectedName,selectedID){
                 //console.log('timePre.substr(k,1)=',timePre.substr(k,1));
 
                 let timeCal = timePreChars[k];
-                console.log("timePre:",timePreChars,'timeCal:',timeCal);
+                console.log("timePreChars:",timePreChars,'timeCal:',timeCal);
 
                 let chainLocationID = [];
                 chainLocationID.push('td'+data[i].Week+'_'+timeCal);
@@ -183,4 +183,73 @@ function chainSearch(locationID,selectedName,selectedID){
 
     }
     
+}
+
+function popUpBtn(matchArray,locationID){
+
+    var modbody = document.getElementById("modal-body");
+    modbody.innerHTML='';
+    console.log("這裡有用到哦");        
+    while(matchArray!=0){
+        var btn = document.createElement('button');
+        let className = matchArray.pop();
+        btn.innerHTML=className;
+        $(btn).addClass("btn btn-success");
+
+
+        btn.onclick = function(){
+            console.log("click!");
+            let callBackTD = document.getElementById(locationID);
+            callBackTD.innerHTML = this.innerHTML;
+            $("#myModal").modal('hide');
+        };
+        console.log("className");
+        //console.log("CALL");
+        modbody.appendChild(btn);
+    }
+}
+
+var selectedClassID=[];
+var matchArrayD=[]
+//用於彈出頁面的按鈕
+function popUpBtn(matchArray,matchArrayID,locationID){ 
+    matchArrayD = matchArray;
+    //console.log(matchArray,matchArrayD);
+    var modbody = document.getElementById("modal-body");
+    modbody.innerHTML='';
+    console.log("locationID:",locationID);        
+    while(matchArrayD!=0){
+        var btn = document.createElement('button');
+        let className = matchArrayD.pop();
+        btn.innerHTML=className;
+        $(btn).addClass("btn btn-success");
+
+        btn.onclick = function(matchArray){
+            console.log("click!",this.innerHTML," button:",locationID);
+
+
+            searchByLocationID(locationID,this.innerHTML);
+
+            //console.log("button:",locationID.substring(4,5));
+            let callBackTD = document.getElementById(locationID);
+
+            for(let i=0;i<matchArray.length;i++){
+                if(matchArray[i] = this.innerHTML){
+                    console.log("MATCH");
+                    selectedClassID.push(matchArrayID[i]);
+                    callBackTD.innerHTML = this.innerHTML;
+                }
+            }
+
+            //let callBackTD = document.getElementById(locationID);
+            callBackTD.innerHTML = this.innerHTML;
+
+            console.log(selectedClassID);
+            $("#myModal").modal('hide');
+        };
+        //console.log(className);
+        //console.log("CALL");
+        modbody.appendChild(btn);
+    }
+
 }
