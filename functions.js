@@ -148,23 +148,33 @@ function chainSearch(locationID,selectedName,selectedID){
     
     for(let i=0;i<data.length;i++){
 
-        if(selectedID == data[i].Code){
+        if(selectedID == data[i].Code){ //《—————————這裡有一個如果是10會讀到1，0 的bug
             let timePre = data[i].Time;
-            timePre = timePre.replace(/,/g,'');  //正則表達刪除所有","
-            console.log("timePre:",timePre);
-            
-            for(let k=0;k<timePre.length;k++){
+//            timePre = timePre.replace(/,/g,'');  //正則表達刪除所有","        這是老方法
+//            console.log("timePre:",timePre);
+//            
+//            for(let k=0;k<timePre.length;k++){
+//                let chainLocationID = [];
+//                let timeCal = timePre.substr(k,1);
+            let timePreChars = timePre.split(",");
+            console.log("timePreChars",timePreChars);
+            for(let k=0;k<timePreChars.length;k++){
+                //console.log('timePre.substr(k,1)=',timePre.substr(k,1));
+
+                let timeCal = timePreChars[k];
+                console.log("timePre:",timePreChars,'timeCal:',timeCal);
+
                 let chainLocationID = [];
-                let timeCal = timePre.substr(k,1);
                 chainLocationID.push('td'+data[i].Week+'_'+timeCal);
                 console.log("Total:",timePre,'k',k," time",timeCal,'\n',chainLocationID);
-                
+
                 for(let routing =0;routing<chainLocationID.length;routing++){
                     let callBackTD = document.getElementById(chainLocationID[routing]);
 
                     //let callBackTD = document.getElementById(locationID);
                     callBackTD.innerHTML = data[i].Name;    
                 }
+                
                 
                 
             }
