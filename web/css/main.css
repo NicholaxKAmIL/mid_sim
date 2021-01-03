@@ -1,19 +1,3 @@
-
-
-/*//////////////////////////////////////////////////////////////////
-[ FONT ]*/
-
-
-@font-face {
-  font-family: Poppins-Regular;
-  src: url('../fonts/poppins/Poppins-Regular.ttf'); 
-}
-
-@font-face {
-  font-family: Poppins-Bold;
-  src: url('../fonts/poppins/Poppins-Bold.ttf'); 
-}
-
 /*//////////////////////////////////////////////////////////////////
 [ RESTYLE TAG ]*/
 * {
@@ -24,7 +8,7 @@
 
 body, html {
 	height: 100%;
-	font-family: sans-serif;
+	
 }
 
 /* ------------------------------------ */
@@ -154,7 +138,7 @@ iframe {
   }
 
   .row .cell:before {
-    font-family: Poppins-Bold;
+    
     font-size: 12px;
     color: #808080;
     line-height: 1.2;
@@ -179,7 +163,7 @@ iframe {
 }
 
 .row .cell {
-  font-family: Poppins-Regular;
+  
   font-size: 15px;
   color: #666666;
   line-height: 1.2;
@@ -191,7 +175,7 @@ iframe {
 }
 
 .row.header .cell {
-  font-family: Poppins-Regular;
+  
   font-size: 18px;
   color: #fff;
   line-height: 1.2;
@@ -248,7 +232,7 @@ iframe {
   }
   
   .row .cell {
-    font-family: Poppins-Regular;
+    
     font-size: 18px;
     color: #555555;
     line-height: 1.2;
