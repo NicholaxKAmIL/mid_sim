@@ -1,6 +1,12 @@
 var data = JSON.parse(Kdata);
+
+var selectedClassID = []; //使用者已經選擇的課程會放在這
+var matchArrayD=[]
+
 //動態產生表單
 function tableCreate(){
+
+    
     var weeks = ['節次','時間','星期一','星期二','星期三','星期四','星期五','星期六','星期日'];
     var times = ['','08:10~09:00','09:10~10:00','10:10~11:00','11:10~12:00','12:40~13:30','13:40~14:30','14:40~15:30','15:40~16:30','16:40~17:30','17:40~18:30','18:35~19:25','19:30~20:20','20:25~21:15','21:20~22:10'];
     var times = ['','08~09','09~10','10~11','11~12','12~13','13~14','14~15','15~16','16~17','17~18','18~19','19~20','20~21','21~22'];
@@ -61,7 +67,7 @@ function tableCreate(){
                 cancelBtn = document.createElement('button');
                 cancelBtn.innerHTML = "X";
                 
-                $(cancelBtn).css("width","10%");
+                $(cancelBtn).css("width","10%" );
 
                 td.appendChild(cancelBtn);
                 
@@ -90,12 +96,12 @@ function tableCreate(){
 
                     }
                     var modBody = document.getElementById("modal-body");
-                    console.log('課程名字:',output);
+                    //console.log('課程名字:',output);
                     modBody.innerHTML = output;
                     popUpBtn(output,outputID,this.id);
 
 
-                    console.log('課程ID:',outputID);
+                    //console.log('課程ID:',outputID);
                     //alert(this.innerHTML+','+week+','+time+'\n');
                     return false;
                 };
@@ -152,6 +158,7 @@ function searchByLocationID(locationID,selectedName){
 }
 //搜尋並自動填入所有符合selectedID的時間課程
 function chainSearch(locationID,selectedName,selectedID){
+    console.log("已選課程：",selectedClassID);
     let searchIndexWeek = locationID.substring(2,3);
     let searchIndexClass = locationID.substring(4,5);
     
@@ -166,7 +173,7 @@ function chainSearch(locationID,selectedName,selectedID){
 //                let chainLocationID = [];
 //                let timeCal = timePre.substr(k,1);
             let timePreChars = timePre.split(",");
-            console.log("timePreChars",timePreChars);
+            //console.log("timePreChars",timePreChars);
             for(let k=0;k<timePreChars.length;k++){
                 //console.log('timePre.substr(k,1)=',timePre.substr(k,1));
 
@@ -175,7 +182,7 @@ function chainSearch(locationID,selectedName,selectedID){
 
                 let chainLocationID = [];
                 chainLocationID.push('td'+data[i].Week+'_'+timeCal);
-                console.log("Total:",timePre,'k',k," time",timeCal,'\n',chainLocationID);
+                //console.log("Total:",timePre,'k',k," time",timeCal,'\n',chainLocationID);
 
                 for(let routing =0;routing<chainLocationID.length;routing++){
                     let callBackTD = document.getElementById(chainLocationID[routing]);
@@ -194,32 +201,7 @@ function chainSearch(locationID,selectedName,selectedID){
     
 }
 
-function popUpBtn(matchArray,locationID){
 
-    var modbody = document.getElementById("modal-body");
-    modbody.innerHTML='';
-    console.log("這裡有用到哦");        
-    while(matchArray!=0){
-        var btn = document.createElement('button');
-        let className = matchArray.pop();
-        btn.innerHTML=className;
-        $(btn).addClass("btn btn-success");
-
-
-        btn.onclick = function(){
-            console.log("click!");
-            let callBackTD = document.getElementById(locationID);
-            callBackTD.innerHTML = this.innerHTML;
-            $("#myModal").modal('hide');
-        };
-        console.log("className");
-        //console.log("CALL");
-        modbody.appendChild(btn);
-    }
-}
-
-var selectedClassID=[];
-var matchArrayD=[]
 //用於彈出頁面的按鈕
 function popUpBtn(matchArray,matchArrayID,locationID){ 
     matchArrayD = matchArray;
