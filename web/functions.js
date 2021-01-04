@@ -53,7 +53,7 @@ function tableCreate(){
             }
             else{
                 //KKK = document.createTextNode(dataIndexx+','+dataIndexy);
-                button = document.createElement('button');
+                button = document.createElement('button'); //這裡會建立選課按鈕
                 button.innerHTML = "待選";
                 buttonCount++;
                 $(button).css("width","90%");
@@ -64,10 +64,10 @@ function tableCreate(){
 
                 td.appendChild(button);
                 
-                cancelBtn = document.createElement('button');
+                cancelBtn = document.createElement('button'); //刪除按鈕
                 cancelBtn.innerHTML = "X";
-                
-                $(cancelBtn).css("width","10%" );
+                cancelBtn.id=week+'_'+time;
+                $(cancelBtn).css({"width":"10%","color":"red"});
 
                 td.appendChild(cancelBtn);
                 
@@ -104,6 +104,15 @@ function tableCreate(){
                     //console.log('課程ID:',outputID);
                     //alert(this.innerHTML+','+week+','+time+'\n');
                     return false;
+                };
+                
+                //刪除按鈕的實作部分
+                cancelBtn.onclick = function(){
+                    let targetID = 'td'+this.id;
+                    let targetBtn = document.getElementById(targetID);
+                    
+                    targetBtn.innerHTML = "待選";
+                    //console.log(targetID,targetBtn.innerHTML);
                 };
                 
                 dataIndexy++; 
@@ -156,6 +165,7 @@ function searchByLocationID(locationID,selectedName){
         }
     }
 }
+
 //搜尋並自動填入所有符合selectedID的時間課程
 function chainSearch(locationID,selectedName,selectedID){
     console.log("已選課程：",selectedClassID);
