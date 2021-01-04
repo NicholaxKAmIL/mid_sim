@@ -50,13 +50,20 @@ function tableCreate(){
                 button = document.createElement('button');
                 button.innerHTML = "待選";
                 buttonCount++;
-                $(button).css("width","100%");
+                $(button).css("width","90%");
 
                 let week = buttonCount%7;
                 let time = parseInt(buttonCount/7)+1;
                 button.id='td'+week+'_'+time;
 
                 td.appendChild(button);
+                
+                cancelBtn = document.createElement('button');
+                cancelBtn.innerHTML = "X";
+                
+                $(cancelBtn).css("width","10%");
+
+                td.appendChild(cancelBtn);
                 
                 button.onclick = function(){
                     $("#myModal").modal();
