@@ -243,3 +243,9 @@ iframe {
     width: 100% !important;
   }
 }
+
+@media print {
+  body.print-element *:not(.print) {
+    display: none;
+  }
+}

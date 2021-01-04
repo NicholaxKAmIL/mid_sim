@@ -14,6 +14,7 @@ function tableCreate(){
     var body = document.body,
         tbl  = document.createElement('table');
     $(tbl).addClass("table");
+    tbl.id='ForPrintTag';
 
     let rowHeader = document.createElement('div');
     $(rowHeader).addClass("rowHeader")
@@ -121,12 +122,28 @@ function tableCreate(){
     dataIndexx++;
     dataIndexy=1;
     }
+    
 
-    body.appendChild(tbl);
+
+
+
+    //按鈕組裝
     body.appendChild(containerTable);
     containerTable.appendChild(wrapTable);
     wrapTable.appendChild(tbl);
-
+    
+        //列印按鈕
+    let printBtn = document.createElement('button');
+    printBtn.innerHTML = "列印";
+    $(printBtn).css({"width":"10%","background-color":"red"});
+    printBtn.onclick=function(){
+        document.body.classList.add('print-element')
+        wrapTable.classList.add('print')
+        window.print()
+        document.body.classList.remove('print-element')
+        wrapTable.classList.remove('print')
+    }
+    //wrapTable.appendChild(printBtn);
 }
 
 //藉由按鈕的ID搜尋這個時間點的所有課程
@@ -254,3 +271,5 @@ function popUpBtn(matchArray,matchArrayID,locationID){
     }
 
 }
+
+
