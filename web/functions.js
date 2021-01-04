@@ -56,6 +56,8 @@ function tableCreate(){
                 let time = parseInt(buttonCount/7)+1;
                 button.id='td'+week+'_'+time;
 
+                td.appendChild(button);
+                
                 button.onclick = function(){
                     $("#myModal").modal();
 
@@ -90,7 +92,7 @@ function tableCreate(){
                     //alert(this.innerHTML+','+week+','+time+'\n');
                     return false;
                 };
-                td.appendChild(button);
+                
                 dataIndexy++; 
             }          
         }
