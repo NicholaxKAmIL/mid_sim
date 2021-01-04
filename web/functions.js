@@ -18,8 +18,6 @@ function tableCreate(){
     $(wrapTable).addClass("wrap-table100")
 
 
-
-
     var dataIndexx=0,dataIndexy=0;
     //var KKK;
 
@@ -34,9 +32,14 @@ function tableCreate(){
         for(var j = 0; j < 9; j++){
             var td = tr.insertCell();
             $(td).addClass=("cell");
+            
+            let insert;
+            
             if(i==0){
-                td.appendChild(document.createTextNode(weeks[j]));
-                $(td).addClass=("row header");
+                insert = document.createTextNode(weeks[j]);
+                $(insert).css("width","100%");
+                td.appendChild(insert);
+                $(td).addClass=("row");
             }else if(i!=0&&j==0){
                 td.appendChild(document.createTextNode(i));
             }else if(i!=0&&j==1){
@@ -45,23 +48,20 @@ function tableCreate(){
             else{
                 //KKK = document.createTextNode(dataIndexx+','+dataIndexy);
                 button = document.createElement('button');
-                button.innerHTML = buttonCount;
+                button.innerHTML = "待選";
                 buttonCount++;
                 $(button).css("width","100%");
 
-                let week = button.innerHTML%7;
-                let time = parseInt(button.innerHTML/7)+1;
+                let week = buttonCount%7;
+                let time = parseInt(buttonCount/7)+1;
                 button.id='td'+week+'_'+time;
 
                 button.onclick = function(){
                     $("#myModal").modal();
-                    let week = this.innerHTML%7;
-                    let time = parseInt(this.innerHTML/7)+1;
-                    this.id='td'+week+'_'+time;
 
                     var output=[];
                     var outputID =[];
-                    this.innerHTML = week+','+time;
+                    //this.innerHTML = week+','+time;
                     for(var Dc=0;Dc<data.length;Dc++){
 
                         for(var Sc=0;Sc<data[Dc].Time.length;Sc++){  //把時間拆開
