@@ -124,7 +124,7 @@ function tableCreate(){
     }
     
 
-
+    createPrintBtn(tbl)
 
 
     //按鈕組裝
@@ -132,18 +132,6 @@ function tableCreate(){
     containerTable.appendChild(wrapTable);
     wrapTable.appendChild(tbl);
     
-        //列印按鈕
-    let printBtn = document.createElement('button');
-    printBtn.innerHTML = "列印";
-    $(printBtn).css({"width":"10%","background-color":"red"});
-    printBtn.onclick=function(){
-        document.body.classList.add('print-element')
-        wrapTable.classList.add('print')
-        window.print()
-        document.body.classList.remove('print-element')
-        wrapTable.classList.remove('print')
-    }
-    //wrapTable.appendChild(printBtn);
 }
 
 //藉由按鈕的ID搜尋這個時間點的所有課程
@@ -185,6 +173,7 @@ function searchByLocationID(locationID,selectedName){
 
 //搜尋並自動填入所有符合selectedID的時間課程
 function chainSearch(locationID,selectedName,selectedID){
+    selectedClassID.push(selectedID);
     console.log("已選課程：",selectedClassID);
     let searchIndexWeek = locationID.substring(2,3);
     let searchIndexClass = locationID.substring(4,5);
@@ -270,6 +259,36 @@ function popUpBtn(matchArray,matchArrayID,locationID){
         modbody.appendChild(btn);
     }
 
+    console.log(selectedClassID)
+}
+
+function createPrintBtn(tbl){
+    //列印按鈕
+    let printBtn = document.createElement('button');
+    printBtn.innerHTML = "列印";
+    $(printBtn).css({"width":"10%","background-color":"red"});
+    printBtn.onclick= function(){
+        $("#myModal").modal();
+        var modbody = document.getElementById("modal-body");
+        modbody.innerHTML=selectedClassID;
+    }
+    let aa = document.getElementsByClassName('wrap-table100');
+    
+    console.log(tbl);
+    
+    function justShow(){
+        
+    }
+    
+    function print(tbl){
+        document.body.classList.add('print-element')
+        tbl.classList.add('print')
+        window.print()
+        document.body.classList.remove('print-element')
+        tbl.classList.remove('print')
+    }
+    
+    tbl.appendChild(printBtn);
 }
 
 
