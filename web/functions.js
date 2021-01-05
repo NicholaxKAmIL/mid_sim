@@ -266,7 +266,7 @@ function createPrintBtn(tbl){
     //列印按鈕
     let printBtn = document.createElement('button');
     printBtn.innerHTML = "列印";
-    $(printBtn).css({"width":"10%","background-color":"red"});
+    $(printBtn).css({"width":"230%","background-color":"red"});
     printBtn.onclick= function(){
         $("#myModal").modal();
         var modbody = document.getElementById("modal-body");
