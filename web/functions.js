@@ -124,7 +124,28 @@ function tableCreate(){
     }
     
 
-    createPrintBtn(tbl)
+   //列印按鈕
+    let printBtn = document.createElement('button');
+    printBtn.innerHTML = "列印";
+    $(printBtn).css({"width":"230%","background-color":"red"});
+    printBtn.onclick= function(){
+        $("#myModal").modal();
+        var modbody = document.getElementById("modal-body");
+        modbody.innerHTML=selectedClassID;
+    }
+    let aa = document.getElementsByClassName('wrap-table100');
+    
+    console.log(tbl);
+    
+    function print(tbl){
+        document.body.classList.add('print-element')
+        tbl.classList.add('print')
+        window.print()
+        document.body.classList.remove('print-element')
+        tbl.classList.remove('print')
+    }
+    
+    tbl.appendChild(printBtn);
 
 
     //按鈕組裝
@@ -263,32 +284,7 @@ function popUpBtn(matchArray,matchArrayID,locationID){
 }
 
 function createPrintBtn(tbl){
-    //列印按鈕
-    let printBtn = document.createElement('button');
-    printBtn.innerHTML = "列印";
-    $(printBtn).css({"width":"230%","background-color":"red"});
-    printBtn.onclick= function(){
-        $("#myModal").modal();
-        var modbody = document.getElementById("modal-body");
-        modbody.innerHTML=selectedClassID;
-    }
-    let aa = document.getElementsByClassName('wrap-table100');
     
-    console.log(tbl);
-    
-    function justShow(){
-        
-    }
-    
-    function print(tbl){
-        document.body.classList.add('print-element')
-        tbl.classList.add('print')
-        window.print()
-        document.body.classList.remove('print-element')
-        tbl.classList.remove('print')
-    }
-    
-    tbl.appendChild(printBtn);
 }
 
 
