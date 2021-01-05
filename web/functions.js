@@ -127,7 +127,7 @@ function tableCreate(){
    //列印按鈕
     let printBtn = document.createElement('button');
     printBtn.innerHTML = "列印";
-    $(printBtn).css({"width":"230%","background-color":"red"});
+    $(printBtn).css({"width":"10%","background-color":"red"});
     printBtn.onclick= function(){
         $("#myModal").modal();
         var modbody = document.getElementById("modal-body");
@@ -145,9 +145,7 @@ function tableCreate(){
         tbl.classList.remove('print')
     }
     
-    tbl.appendChild(printBtn);
-
-
+    wrapTable.appendChild(printBtn);
     //按鈕組裝
     body.appendChild(containerTable);
     containerTable.appendChild(wrapTable);
@@ -281,10 +279,6 @@ function popUpBtn(matchArray,matchArrayID,locationID){
     }
 
     console.log(selectedClassID)
-}
-
-function createPrintBtn(tbl){
-    
 }
 
 
